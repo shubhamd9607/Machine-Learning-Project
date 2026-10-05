@@ -1,338 +1,638 @@
-# Facebook Live Post Engagement Analysis
+# 🏠 House Price Prediction
 
-## Project Name
+A machine learning project that predicts **residential property prices** based on property characteristics, location, size, amenities, accessibility, and other housing-related features.
 
-**Facebook Live Post Engagement Analysis**
+---
 
-## Project Overview
+## 📌 Project Overview
 
-This project analyzes a dataset of Facebook Live posts to understand user engagement and identify patterns in how different types of posts perform.
+**House Price Prediction** is a supervised machine learning project designed to estimate the price of a residential property using historical property data.
 
-The analysis focuses on engagement metrics such as reactions, comments, and shares. Using Python and Exploratory Data Analysis (EDA), the project cleans the dataset, examines relationships between variables, and presents insights through visualizations.
+The project uses information such as:
 
-The goal is to understand which post characteristics are associated with higher engagement and to demonstrate a practical end-to-end data analytics workflow.
+* Location
+* Property type
+* Number of bedrooms (BHK)
+* Property size
+* Year built
+* Furnishing status
+* Floor information
+* Property age
+* Nearby schools and hospitals
+* Public transport accessibility
+* Parking availability
+* Security
+* Amenities
+* Property facing
+* Owner type
+* Availability status
 
-## Objectives
+The target variable for prediction is:
 
-- Understand the structure and characteristics of the Facebook Live dataset.
-- Clean and prepare the data for analysis.
-- Analyze Facebook post engagement using available reaction, comment, and share metrics.
-- Compare engagement across different post types.
-- Identify relationships and patterns among engagement variables.
-- Create meaningful visualizations.
-- Extract useful business and social-media insights from the data.
+> **`Price_in_Lakhs`**
 
-## Dataset
+The project demonstrates the complete machine learning workflow, including data preprocessing, exploratory data analysis, feature engineering, model training, evaluation, and price prediction.
 
-The project uses the uploaded `Live.csv` dataset.
+---
 
-### Dataset Size
+## 🎯 Objectives
 
-- **Rows:** 7,050
-- **Columns:** 16
+The main objectives of this project are:
 
-### Main Columns
+1. Analyze the factors affecting house prices.
+2. Perform exploratory data analysis on the housing dataset.
+3. Clean and preprocess categorical and numerical data.
+4. Convert categorical features into machine-readable form.
+5. Train machine learning regression models.
+6. Evaluate model performance using appropriate regression metrics.
+7. Identify important features influencing property prices.
+8. Predict the estimated price of new properties.
 
-The dataset contains the following columns:
+---
 
-- `status_id`
-- `status_type`
-- `status_published`
-- `num_reactions`
-- `num_comments`
-- `num_shares`
-- `num_likes`
-- `num_loves`
-- `num_wows`
-- `num_hahas`
-- `num_sads`
-- `num_angrys`
-- `Column1`
-- `Column2`
-- `Column3`
-- `Column4`
+## 📂 Dataset
 
-### Engagement Columns
+The dataset contains **999 property records** and **23 features**.
 
-The dataset includes these engagement-related fields:
+### Dataset Features
 
-- Engagement fields are available in the dataset; inspect the notebook for the exact metrics used.
+| Feature                          | Description                              | Type             |
+| -------------------------------- | ---------------------------------------- | ---------------- |
+| `ID`                             | Unique property identifier               | Numerical        |
+| `State`                          | State where the property is located      | Categorical      |
+| `City`                           | City where the property is located       | Categorical      |
+| `Locality`                       | Locality identifier/name                 | Categorical      |
+| `Property_Type`                  | Type of property                         | Categorical      |
+| `BHK`                            | Number of bedrooms, hall and kitchen     | Numerical        |
+| `Size_in_SqFt`                   | Property area in square feet             | Numerical        |
+| `Price_in_Lakhs`                 | Property price in lakhs; target variable | Numerical        |
+| `Price_per_SqFt`                 | Price per square foot                    | Numerical        |
+| `Year_Built`                     | Year in which the property was built     | Numerical        |
+| `Furnished_Status`               | Furnishing condition                     | Categorical      |
+| `Floor_No`                       | Floor number of the property             | Numerical        |
+| `Total_Floors`                   | Total floors in the building             | Numerical        |
+| `Age_of_Property`                | Age of the property                      | Numerical        |
+| `Nearby_Schools`                 | Number of nearby schools                 | Numerical        |
+| `Nearby_Hospitals`               | Number of nearby hospitals               | Numerical        |
+| `Public_Transport_Accessibility` | Accessibility to public transportation   | Categorical      |
+| `Parking_Space`                  | Availability of parking                  | Categorical      |
+| `Security`                       | Availability of security                 | Categorical      |
+| `Amenities`                      | Available property amenities             | Categorical/Text |
+| `Facing`                         | Direction the property faces             | Categorical      |
+| `Owner_Type`                     | Type of property owner/seller            | Categorical      |
+| `Availability_Status`            | Current availability status              | Categorical      |
 
-### Missing Values
+---
 
-The dataset contains missing values in the following columns:
+## 🧠 Machine Learning Problem
 
-- `Column1`: 7,050
-- `Column2`: 7,050
-- `Column3`: 7,050
-- `Column4`: 7,050
+This project is a **Supervised Learning – Regression** problem.
 
-## Technologies Used
+### Input
 
-- **Python**
-- **Pandas** – data loading and manipulation
-- **NumPy** – numerical operations
-- **Matplotlib** – data visualization
-- **Seaborn** – statistical visualization
-- **Jupyter Notebook / Google Colab** – development and analysis
-
-## Project Workflow
+Property-related features such as:
 
 ```text
-Dataset
-   ↓
-Data Loading
-   ↓
-Data Understanding
-   ↓
-Data Cleaning
-   ↓
-Exploratory Data Analysis
-   ↓
-Visualization
-   ↓
-Engagement Analysis
-   ↓
-Key Insights
-   ↓
-Conclusion
+State
+City
+Property_Type
+BHK
+Size_in_SqFt
+Year_Built
+Furnished_Status
+Floor_No
+Total_Floors
+Age_of_Property
+Nearby_Schools
+Nearby_Hospitals
+Public_Transport_Accessibility
+Parking_Space
+Security
+Amenities
+Facing
+Owner_Type
+Availability_Status
 ```
 
-## Data Analysis Performed
+### Output
+
+```text
+Predicted House Price
+```
+
+The target variable is:
+
+```text
+Price_in_Lakhs
+```
+
+---
+
+## 🔄 Project Workflow
+
+```text
+                    ┌─────────────────────┐
+                    │   Housing Dataset   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Data Preprocessing  │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Exploratory Data    │
+                    │ Analysis (EDA)      │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Feature Engineering │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Train-Test Split    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Model Training      │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Model Evaluation    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ House Price         │
+                    │ Prediction          │
+                    └─────────────────────┘
+```
+
+---
+
+## 🛠️ Technologies Used
+
+* **Python**
+* **Pandas** – Data manipulation and analysis
+* **NumPy** – Numerical computations
+* **Matplotlib** – Data visualization
+* **Seaborn** – Statistical visualization
+* **Scikit-learn** – Machine learning and preprocessing
+* **Jupyter Notebook / Google Colab** – Development and experimentation
+
+---
+
+## 📦 Python Libraries
+
+Install the required libraries using:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+---
+
+## 🧹 Data Preprocessing
+
+The following preprocessing steps can be performed:
 
 ### 1. Data Loading
 
-The `Live.csv` dataset is loaded using Pandas.
+The CSV dataset is loaded using Pandas.
 
 ```python
 import pandas as pd
 
-df = pd.read_csv("Live.csv")
+df = pd.read_csv("house_price_dataset.csv")
 ```
 
-### 2. Data Understanding
+### 2. Data Inspection
 
-Basic dataset information is examined using:
+The dataset is inspected using:
 
 ```python
 df.head()
-df.shape
 df.info()
 df.describe()
 df.isnull().sum()
 ```
 
-This helps understand the number of records, data types, numerical ranges, and missing values.
+This helps identify:
 
-### 3. Data Cleaning
+* Dataset structure
+* Data types
+* Missing values
+* Numerical distributions
+* Potential outliers
 
-The data-preprocessing stage may include:
+### 3. Handling Categorical Variables
 
-- Removing unnecessary columns.
-- Checking duplicate records.
-- Handling missing values.
-- Correcting data types where required.
-- Preparing categorical variables for analysis.
-- Checking for unusual or extreme values.
-
-Example:
-
-```python
-df = df.drop_duplicates()
-```
-
-### 4. Exploratory Data Analysis
-
-EDA is performed to answer questions such as:
-
-- Which types of Facebook posts receive more engagement?
-- Which posts receive more comments?
-- Which posts are shared more frequently?
-- How do different reaction types vary?
-- Which engagement metrics are strongly related?
-- Are there noticeable patterns between post characteristics and engagement?
-
-### 5. Visualization
-
-Visualizations can include:
-
-- Bar charts
-- Count plots
-- Histograms
-- Box plots
-- Scatter plots
-- Correlation heatmaps
-- Comparison charts
-
-Example:
-
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-sns.countplot(data=df, x="status_type")
-plt.title("Distribution of Facebook Post Types")
-plt.xticks(rotation=45)
-plt.show()
-```
-
-## Key Analysis Areas
-
-### Post Type Analysis
-
-The project compares engagement across different Facebook post types. This helps identify whether certain content categories receive more interaction.
-
-### Reaction Analysis
-
-Different reaction metrics are analyzed to understand how users respond to posts.
-
-### Comment Analysis
-
-Comments are used as an indicator of active audience interaction and discussion.
-
-### Share Analysis
-
-Shares help measure how frequently users redistribute or spread posts.
-
-### Correlation Analysis
-
-Correlation analysis is used to examine relationships between numerical engagement metrics.
-
-Example:
-
-```python
-correlation = df.corr(numeric_only=True)
-
-plt.figure(figsize=(12, 8))
-sns.heatmap(correlation, annot=True, cmap="coolwarm")
-plt.title("Correlation Between Engagement Metrics")
-plt.show()
-```
-
-## Sample Questions Answered
-
-The analysis can answer questions such as:
-
-1. What is the most common type of Facebook post?
-2. Which post type receives the highest number of reactions?
-3. Which post type generates the most comments?
-4. Which post type receives the most shares?
-5. Which reaction is most frequently recorded?
-6. What is the relationship between reactions, comments, and shares?
-7. Are there outliers in engagement?
-8. Which content types appear to generate stronger audience interaction?
-
-## Project Structure
+Categorical columns such as:
 
 ```text
-Facebook-Live-Post-Engagement-Analysis/
-│
-├── Live.csv
-├── Facebook_Live_Engagement_Analysis.ipynb
-├── README.md
-└── images/
-    └── visualizations/
+State
+City
+Property_Type
+Furnished_Status
+Public_Transport_Accessibility
+Parking_Space
+Security
+Facing
+Owner_Type
+Availability_Status
 ```
 
-> The notebook filename can be changed to match the actual notebook used in the project.
+can be encoded using techniques such as:
 
-## How to Run the Project
+* One-Hot Encoding
+* Label Encoding
 
-### 1. Clone the Repository
+### 4. Feature Selection
 
-```bash
-git clone <your-github-repository-url>
-```
-
-### 2. Open the Project Folder
-
-```bash
-cd Facebook-Live-Post-Engagement-Analysis
-```
-
-### 3. Install Required Libraries
-
-```bash
-pip install pandas numpy matplotlib seaborn jupyter
-```
-
-### 4. Start Jupyter Notebook
-
-```bash
-jupyter notebook
-```
-
-### 5. Open the Analysis Notebook
-
-Open:
+The target variable is:
 
 ```text
-Facebook_Live_Engagement_Analysis.ipynb
+Price_in_Lakhs
 ```
 
-Make sure `Live.csv` is located in the same project directory as the notebook.
-
-## Expected Outcome
-
-After completing the analysis, the project provides:
-
-- A cleaned and analyzed Facebook Live dataset.
-- Visual representation of engagement patterns.
-- Comparison of different post types.
-- Analysis of reactions, comments, and shares.
-- Correlation analysis between engagement metrics.
-- Data-driven insights about Facebook post engagement.
-
-## Key Insights
-
-The final insights should be based on the results generated in the notebook rather than assumptions about the dataset.
-
-Typical insights to document include:
-
-- The distribution of different post types.
-- The post type with the highest engagement according to the selected metric.
-- The most common reaction category.
-- The relationship between comments, shares, and reactions.
-- Important outliers or unusual engagement records.
-- Content patterns that may be useful for social-media analysis.
-
-## Business Applications
-
-The analysis can be useful for:
-
-- Social-media performance analysis.
-- Content strategy development.
-- Audience engagement research.
-- Marketing analytics.
-- Identifying high-engagement content.
-- Data-driven social-media decision making.
-
-## Future Scope
-
-The project can be extended by:
-
-- Building an interactive Power BI or Tableau dashboard.
-- Creating an engagement score.
-- Performing time-series analysis if reliable date/time fields are available.
-- Applying machine-learning models to predict engagement.
-- Performing customer/audience segmentation.
-- Automating data collection from social-media sources.
-- Deploying the analysis as an interactive web dashboard using Streamlit.
-
-## Conclusion
-
-The **Facebook Live Post Engagement Analysis** project demonstrates a complete data analytics workflow, starting from raw CSV data and progressing through data cleaning, exploratory analysis, visualization, and insight generation.
-
-The project provides practical experience with Python, Pandas, data visualization, exploratory data analysis, and interpretation of social-media engagement data.
-
-## Author
-
-**Kartik Rajendra Dhobale**
-
-**Department:** Artificial Intelligence and Data Science
+The `ID` column should generally not be used as a predictive feature because it is only an identifier.
 
 ---
 
-## License
+## 📊 Exploratory Data Analysis
 
-This project is intended for educational and academic purposes.
+EDA can be performed to understand relationships between property characteristics and prices.
+
+Recommended visualizations include:
+
+### Price Distribution
+
+```python
+sns.histplot(df["Price_in_Lakhs"], kde=True)
+```
+
+### Property Size vs Price
+
+```python
+sns.scatterplot(
+    data=df,
+    x="Size_in_SqFt",
+    y="Price_in_Lakhs"
+)
+```
+
+### BHK vs Price
+
+```python
+sns.boxplot(
+    data=df,
+    x="BHK",
+    y="Price_in_Lakhs"
+)
+```
+
+### Correlation Analysis
+
+A correlation heatmap can be used to analyze relationships among numerical variables.
+
+```python
+sns.heatmap(df.corr(numeric_only=True), annot=True)
+```
+
+---
+
+## 🤖 Machine Learning Models
+
+Different regression algorithms can be trained and compared.
+
+### Recommended Models
+
+#### 1. Linear Regression
+
+Provides a simple baseline model for predicting house prices.
+
+#### 2. Decision Tree Regressor
+
+Captures nonlinear relationships between property characteristics and price.
+
+#### 3. Random Forest Regressor
+
+Uses multiple decision trees and generally provides stronger performance for complex tabular datasets.
+
+#### 4. Gradient Boosting Regressor
+
+Builds models sequentially to reduce prediction errors and can perform well on structured datasets.
+
+---
+
+## 📏 Model Evaluation
+
+Since this is a regression problem, the following metrics can be used.
+
+### Mean Absolute Error — MAE
+
+Measures the average absolute difference between actual and predicted prices.
+
+```text
+MAE = Average(|Actual Price - Predicted Price|)
+```
+
+Lower MAE indicates better performance.
+
+### Mean Squared Error — MSE
+
+Penalizes larger prediction errors more heavily.
+
+```text
+MSE = Average((Actual Price - Predicted Price)²)
+```
+
+Lower MSE is better.
+
+### Root Mean Squared Error — RMSE
+
+The square root of MSE.
+
+```text
+RMSE = √MSE
+```
+
+Lower RMSE indicates better prediction performance.
+
+### R² Score
+
+Measures how well the model explains the variation in house prices.
+
+```text
+R² = 1 - (SS_res / SS_tot)
+```
+
+A value closer to **1.0** indicates better model performance.
+
+---
+
+## 🏗️ Suggested Project Structure
+
+```text
+House-Price-Prediction/
+│
+├── dataset/
+│   └── house_price_dataset.csv
+│
+├── notebooks/
+│   └── house_price_prediction.ipynb
+│
+├── src/
+│   └── house_price_prediction.py
+│
+├── models/
+│   └── house_price_model.pkl
+│
+├── README.md
+│
+└── requirements.txt
+```
+
+---
+
+## 🚀 Implementation Steps
+
+### Step 1 — Load Dataset
+
+Load the CSV file using Pandas.
+
+### Step 2 — Understand the Data
+
+Check:
+
+* Shape
+* Columns
+* Data types
+* Missing values
+* Duplicate records
+* Statistical summary
+
+### Step 3 — Clean the Dataset
+
+Handle:
+
+* Missing values
+* Duplicate records
+* Invalid values
+* Categorical data
+* Outliers where appropriate
+
+### Step 4 — Perform EDA
+
+Analyze how different features affect property prices.
+
+### Step 5 — Prepare Features and Target
+
+```python
+X = df.drop("Price_in_Lakhs", axis=1)
+y = df["Price_in_Lakhs"]
+```
+
+Remove non-predictive identifiers such as `ID` where appropriate.
+
+### Step 6 — Encode Categorical Features
+
+Categorical variables should be converted into numerical representations using an appropriate encoding technique.
+
+### Step 7 — Split the Dataset
+
+The dataset can be divided into training and testing sets.
+
+```python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+```
+
+### Step 8 — Train Regression Models
+
+Train multiple regression algorithms and compare their performance.
+
+### Step 9 — Evaluate Models
+
+Calculate:
+
+* MAE
+* MSE
+* RMSE
+* R² Score
+
+### Step 10 — Select the Best Model
+
+The model with the best overall evaluation performance can be selected for final house price prediction.
+
+---
+
+## 🔮 Prediction Example
+
+After training the final model, new property information can be supplied to obtain an estimated price.
+
+Example input:
+
+```text
+Property Type       : Apartment
+BHK                 : 3
+Size                : 1800 Sq.Ft
+Year Built          : 2015
+Furnished Status    : Furnished
+Parking             : Yes
+Security            : Yes
+Transport Access    : High
+```
+
+The trained model produces an estimated:
+
+```text
+Predicted Price: XX Lakhs
+```
+
+> The actual predicted value depends on the trained model and supplied property features.
+
+---
+
+## 📈 Expected Outcomes
+
+The project is expected to:
+
+* Identify important factors affecting property prices.
+* Discover relationships between property size, location, BHK, age, and price.
+* Compare different regression algorithms.
+* Select an appropriate model for price prediction.
+* Provide estimated property prices for new observations.
+
+---
+
+## ⚠️ Important Dataset Consideration
+
+The dataset contains both **`Price_in_Lakhs`** and **`Price_per_SqFt`**.
+
+Before model training, feature selection should be handled carefully because `Price_per_SqFt` is directly related to property price and property size.
+
+Including it may introduce **target leakage**, depending on how `Price_per_SqFt` was calculated in the original dataset.
+
+For a more realistic house-price prediction system, consider training:
+
+**Model 1 — Without `Price_per_SqFt`**
+
+```text
+Size + Location + BHK + Property Features → Price
+```
+
+and optionally comparing it with:
+
+**Model 2 — Including `Price_per_SqFt`**
+
+```text
+Size + Location + Property Features + Price_per_SqFt → Price
+```
+
+This makes the model comparison more meaningful.
+
+---
+
+## 💡 Future Enhancements
+
+The project can be extended with:
+
+* Hyperparameter tuning
+* Cross-validation
+* Advanced ensemble models
+* XGBoost or other gradient boosting algorithms
+* Feature importance analysis
+* Interactive prediction interface
+* Streamlit web application
+* Model deployment using cloud services
+* Location-based visualization
+* Automated model retraining
+* Real-time property price estimation
+
+---
+
+## 🌐 Possible Application
+
+A trained model can be integrated into a web application where users enter property details and receive an estimated house price.
+
+```text
+User
+  │
+  ▼
+Property Details
+  │
+  ▼
+Preprocessing
+  │
+  ▼
+Trained ML Model
+  │
+  ▼
+Predicted Price
+  │
+  ▼
+Display Result
+```
+
+---
+
+## 📚 Learning Outcomes
+
+Through this project, the following concepts can be learned:
+
+* Data preprocessing
+* Exploratory data analysis
+* Data visualization
+* Feature engineering
+* Categorical encoding
+* Regression algorithms
+* Train-test splitting
+* Model evaluation
+* Feature selection
+* Model comparison
+* Machine learning prediction
+* Model deployment
+
+---
+
+## 👨‍💻 Project Information
+
+**Project Name:** House Price Prediction
+
+**Project Type:** Machine Learning – Regression
+
+**Dataset Size:** 999 records × 23 columns
+
+**Target Variable:** `Price_in_Lakhs`
+
+**Programming Language:** Python
+
+**Domain:** Real Estate / Machine Learning
+
+---
+
+## 📄 License
+
+This project is intended for **educational and academic purposes**. The dataset and project implementation should be used according to the applicable terms of the original dataset source.
+
+---
+
+## ⭐ Conclusion
+
+The **House Price Prediction** project demonstrates how machine learning can be used to estimate residential property prices from structured housing data.
+
+By combining property characteristics, location information, accessibility, amenities, and other relevant attributes, regression algorithms can learn patterns in historical housing data and provide price estimates for new properties.
+
+The project provides a practical implementation of the complete **machine learning lifecycle — from data preprocessing and analysis to model training, evaluation, and prediction**.
