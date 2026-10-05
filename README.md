@@ -1,555 +1,338 @@
-# 🩸 DiabetesAI — Medical Intelligence Dashboard
+# Facebook Live Post Engagement Analysis
 
-An interactive **machine-learning based diabetes risk assessment dashboard** built with **Python, Streamlit, Pandas, NumPy, Plotly, and Scikit-Learn**.
+## Project Name
 
-The application provides a professional clinical-style interface for entering patient measurements, generating a diabetes-risk prediction using a **Decision Tree Classifier**, visualizing the result, maintaining prediction history, and exploring the training dataset.
+**Facebook Live Post Engagement Analysis**
 
-> **Important:** This project is intended for **educational, portfolio, and analytical demonstration purposes only**. It is not a medical diagnostic system and must not be used as a substitute for evaluation by a qualified healthcare professional.
+## Project Overview
 
----
+This project analyzes a dataset of Facebook Live posts to understand user engagement and identify patterns in how different types of posts perform.
 
-## 📌 Project Overview
+The analysis focuses on engagement metrics such as reactions, comments, and shares. Using Python and Exploratory Data Analysis (EDA), the project cleans the dataset, examines relationships between variables, and presents insights through visualizations.
 
-DiabetesAI is designed as a decision-support style application that evaluates a patient's clinical measurements using a previously trained machine-learning classification model.
+The goal is to understand which post characteristics are associated with higher engagement and to demonstrate a practical end-to-end data analytics workflow.
 
-The dashboard includes:
+## Objectives
 
-- Patient assessment and diabetes-risk prediction
-- Probability-based risk classification
-- Interactive risk visualizations
-- Patient metric comparison
-- Prediction history logging
-- Dataset exploration and basic EDA
-- Model architecture and feature-order information
-- Educational clinical insights
-- Downloadable prediction reports
+- Understand the structure and characteristics of the Facebook Live dataset.
+- Clean and prepare the data for analysis.
+- Analyze Facebook post engagement using available reaction, comment, and share metrics.
+- Compare engagement across different post types.
+- Identify relationships and patterns among engagement variables.
+- Create meaningful visualizations.
+- Extract useful business and social-media insights from the data.
 
----
+## Dataset
 
-## ✨ Key Features
+The project uses the uploaded `Live.csv` dataset.
 
-### 🔮 1. Prediction Engine
+### Dataset Size
 
-The Prediction Engine accepts **8 numerical patient features**:
+- **Rows:** 7,050
+- **Columns:** 16
 
-| Feature | Description |
-|---|---|
-| Pregnancies | Number of times pregnant |
-| Glucose | Plasma glucose concentration |
-| BloodPressure | Diastolic blood pressure |
-| SkinThickness | Triceps skin fold thickness |
-| Insulin | 2-hour serum insulin |
-| BMI | Body Mass Index |
-| DiabetesPedigreeFunction | Diabetes pedigree score |
-| Age | Patient age in years |
+### Main Columns
 
-The application sends the values to the loaded machine-learning model and returns:
+The dataset contains the following columns:
 
-- Model classification
-- Diabetes probability
-- Assessed risk tier
-- Classification confidence
-- Risk probability gauge
-- Normalized patient-metric visualization
-- Contributory insights
-- Downloadable CSV clinical summary
+- `status_id`
+- `status_type`
+- `status_published`
+- `num_reactions`
+- `num_comments`
+- `num_shares`
+- `num_likes`
+- `num_loves`
+- `num_wows`
+- `num_hahas`
+- `num_sads`
+- `num_angrys`
+- `Column1`
+- `Column2`
+- `Column3`
+- `Column4`
 
----
+### Engagement Columns
 
-### 📊 2. Risk Classification
+The dataset includes these engagement-related fields:
 
-The application categorizes the calculated diabetes probability into four risk tiers:
+- Engagement fields are available in the dataset; inspect the notebook for the exact metrics used.
 
-| Probability | Risk Category |
-|---:|---|
-| `0–30%` | 🟢 Low Risk |
-| `>30–60%` | 🟡 Moderate Risk |
-| `>60–80%` | 🟠 High Risk |
-| `>80–100%` | 🔴 Very High Risk |
+### Missing Values
 
-The final prediction itself is returned by the classification model as:
+The dataset contains missing values in the following columns:
 
-- `0` → No diabetes classification
-- `1` → Diabetes classification
+- `Column1`: 7,050
+- `Column2`: 7,050
+- `Column3`: 7,050
+- `Column4`: 7,050
 
----
+## Technologies Used
 
-### 📈 3. Interactive Visualizations
+- **Python**
+- **Pandas** – data loading and manipulation
+- **NumPy** – numerical operations
+- **Matplotlib** – data visualization
+- **Seaborn** – statistical visualization
+- **Jupyter Notebook / Google Colab** – development and analysis
 
-The dashboard uses **Plotly** to provide interactive visual analysis.
-
-#### Risk Probability Meter
-A radial gauge displays the predicted diabetes probability from 0% to 100%.
-
-#### Relative Metric Spectrum
-A radar-style chart compares selected patient measurements after normalization against predefined reference bounds.
-
----
-
-### 🧠 4. Decision Context
-
-The dashboard provides human-readable insights based on important patient measurements such as:
-
-- Glucose
-- BMI
-- Age
-
-These messages provide context around factors associated with the displayed risk assessment.
-
----
-
-### 📜 5. Prediction History
-
-Every executed prediction can be recorded in:
+## Project Workflow
 
 ```text
-prediction_history.csv
+Dataset
+   ↓
+Data Loading
+   ↓
+Data Understanding
+   ↓
+Data Cleaning
+   ↓
+Exploratory Data Analysis
+   ↓
+Visualization
+   ↓
+Engagement Analysis
+   ↓
+Key Insights
+   ↓
+Conclusion
 ```
 
-The history contains:
+## Data Analysis Performed
 
-- Timestamp
-- Patient features
-- Prediction
-- Probability
-- Risk level
+### 1. Data Loading
 
-The history page displays the records in a structured table and supports CSV export.
+The `Live.csv` dataset is loaded using Pandas.
 
----
+```python
+import pandas as pd
 
-### 🗂 6. Dataset Explorer
-
-The Dataset Explorer provides basic training-data inspection, including:
-
-- Total records
-- Total features
-- Positive instances
-- Raw dataset sample
-- Feature distribution visualization
-
-The supplied dataset contains:
-
-- **768 records**
-- **8 input features**
-- **1 target column**
-- **500 Outcome = 0**
-- **268 Outcome = 1**
-
-Dataset columns:
-
-```text
-Pregnancies
-Glucose
-BloodPressure
-SkinThickness
-Insulin
-BMI
-DiabetesPedigreeFunction
-Age
-Outcome
+df = pd.read_csv("Live.csv")
 ```
 
----
+### 2. Data Understanding
 
-### 🤖 7. Model Architecture
+Basic dataset information is examined using:
 
-The application is configured to use a **Decision Tree Classifier**.
-
-Model configuration displayed by the application:
-
-| Parameter | Value |
-|---|---|
-| Algorithm | Decision Tree Classifier |
-| Max Depth | 7 |
-| Min Samples Leaf | 15 |
-| Min Samples Split | 2 |
-| Target Variable | Outcome |
-| Feature Count | 8 |
-
-The application loads the serialized model and feature ordering from:
-
-```text
-diabetes_model.pkl
-diabetes_features.pkl
+```python
+df.head()
+df.shape
+df.info()
+df.describe()
+df.isnull().sum()
 ```
 
----
+This helps understand the number of records, data types, numerical ranges, and missing values.
 
-## 🏗️ Application Architecture
+### 3. Data Cleaning
 
-```text
-                    ┌──────────────────────────┐
-                    │       User Input         │
-                    │  8 Clinical Measurements │
-                    └────────────┬─────────────┘
-                                 │
-                                 ▼
-                    ┌──────────────────────────┐
-                    │     Streamlit UI Layer   │
-                    │ Validation + Form Inputs │
-                    └────────────┬─────────────┘
-                                 │
-                                 ▼
-                    ┌──────────────────────────┐
-                    │   Decision Tree Model    │
-                    │   diabetes_model.pkl     │
-                    └────────────┬─────────────┘
-                                 │
-                     ┌───────────┴───────────┐
-                     ▼                       ▼
-              ┌──────────────┐       ┌──────────────┐
-              │ Prediction   │       │ Probability  │
-              │   0 / 1      │       │   0–100%     │
-              └──────┬───────┘       └──────┬───────┘
-                     │                       │
-                     └───────────┬───────────┘
-                                 ▼
-                    ┌──────────────────────────┐
-                    │      Risk Assessment     │
-                    │ Low / Moderate / High /  │
-                    │       Very High Risk     │
-                    └────────────┬─────────────┘
-                                 │
-              ┌──────────────────┼──────────────────┐
-              ▼                  ▼                  ▼
-       ┌────────────┐     ┌────────────┐     ┌─────────────┐
-       │ Plotly      │     │ Prediction │     │ CSV Report  │
-       │ Visuals     │     │ History    │     │ Download    │
-       └────────────┘     └────────────┘     └─────────────┘
+The data-preprocessing stage may include:
+
+- Removing unnecessary columns.
+- Checking duplicate records.
+- Handling missing values.
+- Correcting data types where required.
+- Preparing categorical variables for analysis.
+- Checking for unusual or extreme values.
+
+Example:
+
+```python
+df = df.drop_duplicates()
 ```
 
----
+### 4. Exploratory Data Analysis
 
-## 🖥️ Dashboard Pages
+EDA is performed to answer questions such as:
 
-The application contains the following navigation sections:
+- Which types of Facebook posts receive more engagement?
+- Which posts receive more comments?
+- Which posts are shared more frequently?
+- How do different reaction types vary?
+- Which engagement metrics are strongly related?
+- Are there noticeable patterns between post characteristics and engagement?
 
-1. **🏠 Overview**
-   - Project introduction
-   - Core feature scope
-   - High-level system information
+### 5. Visualization
 
-2. **🔮 Prediction Engine**
-   - Patient clinical inputs
-   - Risk calculation
-   - Classification result
-   - Interactive visualizations
-   - Clinical summary export
+Visualizations can include:
 
-3. **📊 Analytics Hub**
-   - Total assessments
-   - Positive and negative classifications
-   - Mean risk score
-   - Historical classification charts
-   - Risk-tier distribution
+- Bar charts
+- Count plots
+- Histograms
+- Box plots
+- Scatter plots
+- Correlation heatmaps
+- Comparison charts
 
-4. **📜 Prediction History**
-   - Stored assessment records
-   - Historical registry
-   - CSV export
+Example:
 
-5. **🗂 Dataset Explorer**
-   - Dataset statistics
-   - Raw data sample
-   - Feature distribution charts
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-6. **🤖 Model Architecture**
-   - Algorithm details
-   - Hyperparameter configuration
-   - Feature ordering
+sns.countplot(data=df, x="status_type")
+plt.title("Distribution of Facebook Post Types")
+plt.xticks(rotation=45)
+plt.show()
+```
 
-7. **📚 Clinical Insights**
-   - Educational information about major diabetes-related measurements
+## Key Analysis Areas
 
-8. **ℹ️ About**
-   - Project and technology information
+### Post Type Analysis
 
----
+The project compares engagement across different Facebook post types. This helps identify whether certain content categories receive more interaction.
 
-## 🧰 Technologies Used
+### Reaction Analysis
 
-| Technology | Purpose |
-|---|---|
-| Python | Application and ML integration |
-| Streamlit | Interactive web dashboard |
-| Pandas | Data manipulation |
-| NumPy | Numerical operations |
-| Scikit-Learn | Machine-learning model |
-| Plotly Express | Interactive charts |
-| Plotly Graph Objects | Gauge and radar-style visualizations |
-| Pickle | Loading serialized ML model artifacts |
-| CSS / HTML | Dashboard styling and theme |
+Different reaction metrics are analyzed to understand how users respond to posts.
 
----
+### Comment Analysis
 
-## 📁 Project Structure
+Comments are used as an indicator of active audience interaction and discussion.
 
-A typical project directory can be organized as:
+### Share Analysis
+
+Shares help measure how frequently users redistribute or spread posts.
+
+### Correlation Analysis
+
+Correlation analysis is used to examine relationships between numerical engagement metrics.
+
+Example:
+
+```python
+correlation = df.corr(numeric_only=True)
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(correlation, annot=True, cmap="coolwarm")
+plt.title("Correlation Between Engagement Metrics")
+plt.show()
+```
+
+## Sample Questions Answered
+
+The analysis can answer questions such as:
+
+1. What is the most common type of Facebook post?
+2. Which post type receives the highest number of reactions?
+3. Which post type generates the most comments?
+4. Which post type receives the most shares?
+5. Which reaction is most frequently recorded?
+6. What is the relationship between reactions, comments, and shares?
+7. Are there outliers in engagement?
+8. Which content types appear to generate stronger audience interaction?
+
+## Project Structure
 
 ```text
-DiabetesAI/
+Facebook-Live-Post-Engagement-Analysis/
 │
-├── app.py
-├── diabetes.csv
-├── diabetes_model.pkl
-├── diabetes_features.pkl
-├── prediction_history.csv
+├── Live.csv
+├── Facebook_Live_Engagement_Analysis.ipynb
 ├── README.md
-│
-└── assets/
-    └── (optional project assets)
+└── images/
+    └── visualizations/
 ```
 
-### File descriptions
+> The notebook filename can be changed to match the actual notebook used in the project.
 
-| File | Purpose |
-|---|---|
-| `app.py` | Main Streamlit application |
-| `diabetes.csv` | Diabetes dataset used for dataset exploration |
-| `diabetes_model.pkl` | Serialized Decision Tree model |
-| `diabetes_features.pkl` | Stored feature ordering used by the model |
-| `prediction_history.csv` | Historical prediction records |
-| `README.md` | Project documentation |
+## How to Run the Project
 
-`prediction_history.csv` is automatically created by the application when it does not already exist.
-
----
-
-## ⚙️ Installation
-
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
-cd DiabetesAI
+git clone <your-github-repository-url>
 ```
 
-### 2. Create a virtual environment
+### 2. Open the Project Folder
 
 ```bash
-python -m venv venv
+cd Facebook-Live-Post-Engagement-Analysis
 ```
 
-### 3. Activate the environment
-
-#### Windows
+### 3. Install Required Libraries
 
 ```bash
-venv\Scripts\activate
+pip install pandas numpy matplotlib seaborn jupyter
 ```
 
-#### macOS / Linux
+### 4. Start Jupyter Notebook
 
 ```bash
-source venv/bin/activate
+jupyter notebook
 ```
 
-### 4. Install dependencies
+### 5. Open the Analysis Notebook
 
-```bash
-pip install streamlit pandas numpy scikit-learn plotly
-```
-
----
-
-## ▶️ Run the Application
-
-Start the Streamlit application with:
-
-```bash
-streamlit run app.py
-```
-
-After startup, open the local Streamlit address shown in the terminal, typically:
+Open:
 
 ```text
-http://localhost:8501
+Facebook_Live_Engagement_Analysis.ipynb
 ```
 
----
+Make sure `Live.csv` is located in the same project directory as the notebook.
 
-## 🔐 Required Model Files
+## Expected Outcome
 
-Before running the application, make sure these files are available in the same working directory as `app.py`:
+After completing the analysis, the project provides:
 
-```text
-diabetes_model.pkl
-diabetes_features.pkl
-```
+- A cleaned and analyzed Facebook Live dataset.
+- Visual representation of engagement patterns.
+- Comparison of different post types.
+- Analysis of reactions, comments, and shares.
+- Correlation analysis between engagement metrics.
+- Data-driven insights about Facebook post engagement.
 
-The application loads them during startup.
+## Key Insights
 
-If either file is missing or cannot be loaded, the application displays a critical model-loading error and stops execution.
+The final insights should be based on the results generated in the notebook rather than assumptions about the dataset.
 
----
+Typical insights to document include:
 
-## 🧪 Dataset
+- The distribution of different post types.
+- The post type with the highest engagement according to the selected metric.
+- The most common reaction category.
+- The relationship between comments, shares, and reactions.
+- Important outliers or unusual engagement records.
+- Content patterns that may be useful for social-media analysis.
 
-The supplied diabetes dataset contains **768 patient records** and **9 columns**:
+## Business Applications
 
-- 8 predictive features
-- 1 target variable (`Outcome`)
+The analysis can be useful for:
 
-### Target Variable
+- Social-media performance analysis.
+- Content strategy development.
+- Audience engagement research.
+- Marketing analytics.
+- Identifying high-engagement content.
+- Data-driven social-media decision making.
 
-```text
-Outcome = 0
-Outcome = 1
-```
+## Future Scope
 
-Dataset distribution:
+The project can be extended by:
 
-```text
-Outcome 0 → 500 records
-Outcome 1 → 268 records
-```
+- Building an interactive Power BI or Tableau dashboard.
+- Creating an engagement score.
+- Performing time-series analysis if reliable date/time fields are available.
+- Applying machine-learning models to predict engagement.
+- Performing customer/audience segmentation.
+- Automating data collection from social-media sources.
+- Deploying the analysis as an interactive web dashboard using Streamlit.
 
-The dataset is used by the Dataset Explorer for analysis and inspection.
+## Conclusion
 
----
+The **Facebook Live Post Engagement Analysis** project demonstrates a complete data analytics workflow, starting from raw CSV data and progressing through data cleaning, exploratory analysis, visualization, and insight generation.
 
-## 📄 Prediction Report
+The project provides practical experience with Python, Pandas, data visualization, exploratory data analysis, and interpretation of social-media engagement data.
 
-After an assessment, the application generates a downloadable CSV summary containing information such as:
+## Author
 
-```text
-Patient Classification
-Diabetes Probability
-Assessed Risk Category
-Glucose
-Blood Pressure
-BMI
-Insulin
-Age
-Pedigree Function
-Assessment Timestamp
-```
+**Kartik Rajendra Dhobale**
 
-The generated filename follows the pattern:
-
-```text
-DiabetesAI_Report_YYYYMMDD_HHMMSS.csv
-```
+**Department:** Artificial Intelligence and Data Science
 
 ---
 
-## 📊 Example Workflow
+## License
 
-```text
-Launch Application
-       │
-       ▼
-Open Prediction Engine
-       │
-       ▼
-Enter Patient Measurements
-       │
-       ▼
-Click "Execute Risk Analysis"
-       │
-       ▼
-Decision Tree Prediction
-       │
-       ├──────────────► Classification
-       │
-       ├──────────────► Diabetes Probability
-       │
-       ├──────────────► Risk Category
-       │
-       └──────────────► Confidence
-       │
-       ▼
-View Interactive Charts
-       │
-       ▼
-Download Clinical Summary
-       │
-       ▼
-Prediction Stored in History
-```
-
----
-
-## 🎯 Project Objectives
-
-The main objectives of DiabetesAI are:
-
-- Build a user-friendly machine-learning dashboard for diabetes risk assessment.
-- Demonstrate integration of a trained classification model with Streamlit.
-- Visualize model outputs using interactive charts.
-- Maintain a local prediction history.
-- Provide basic exploratory dataset analysis.
-- Demonstrate how machine learning can be integrated into a healthcare-oriented decision-support interface.
-- Present model information and feature inputs in a professional dashboard.
-
----
-
-## 🔮 Future Enhancements
-
-Possible improvements include:
-
-- Model comparison using Random Forest, Logistic Regression, XGBoost, and other classifiers
-- Cross-validation and model-performance reporting
-- ROC-AUC, precision, recall, F1-score, and confusion-matrix analysis
-- SHAP-based feature explanations
-- More advanced patient trend analytics
-- Database-backed prediction history
-- User authentication and role-based access
-- PDF report generation
-- Cloud deployment
-- API-based model serving
-- Model monitoring and drift detection
-- Improved clinical validation workflows
-
----
-
-## ⚠️ Medical Disclaimer
-
-**DiabetesAI is an educational and portfolio project.**
-
-The predictions generated by this software are based on a machine-learning model and should **not** be interpreted as a clinical diagnosis, medical recommendation, or treatment decision.
-
-Do not use this application to make decisions about medication, treatment, or personal medical care.
-
-For real-world medical concerns, consult a qualified healthcare professional.
-
----
-
-## 👨‍💻 Project Information
-
-**Project Name:** DiabetesAI — Medical Intelligence Dashboard
-
-**Application Type:** Machine Learning + Healthcare Analytics Dashboard
-
-**Primary Framework:** Streamlit
-
-**Machine Learning Algorithm:** Decision Tree Classifier
-
-**Input Features:** 8
-
-**Target:** `Outcome`
-
----
-
-## 📜 License
-
-This project can be used for educational and portfolio purposes. Add an appropriate open-source license, such as MIT, to the repository if you intend to distribute the project publicly.
-
----
-
-## ⭐ Acknowledgement
-
-This project demonstrates the integration of:
-
-```text
-Machine Learning
-        +
-Healthcare Analytics
-        +
-Data Visualization
-        +
-Interactive Web Application
-```
-
-to create a practical educational prototype for diabetes risk assessment.
+This project is intended for educational and academic purposes.
